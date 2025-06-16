@@ -1,0 +1,158 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Crown for Queen Diamante</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(135deg, #4b0082, #ffd700);
+            background-image: url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
+            background-blend-mode: overlay;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 900px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            margin: 20px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: #ffd700;
+            margin-bottom: 30px;
+            animation: sparkle 3s infinite alternate;
+            text-shadow: 0 0 10px #ff6f61;
+        }
+        p {
+            font-size: 1.3em;
+            line-height: 1.9;
+            margin: 15px 0;
+        }
+        .highlight {
+            color: #ff6f61;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ff6f61;
+        }
+        .gold {
+            color: #ffd700;
+        }
+        img {
+            max-width: 250px;
+            margin: 30px 0;
+            border-radius: 15px;
+            border: 3px solid #ffd700;
+        }
+        @keyframes sparkle {
+            0% { opacity: 0.8; text-shadow: 0 0 10px #ff6f61; }
+            100% { opacity: 1; text-shadow: 0 0 20px #ff6f61; }
+        }
+        @media (max-width: 700px) {
+            h1 { font-size: 2.2em; }
+            p { font-size: 1.1em; }
+            .container { padding: 30px; }
+            img { max-width: 180px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>A Crown for Queen Diamante</h1>
+        <p>Dear <span class="highlight">FMM</span>, The radiant Denise T. Murira,<br>
+        Neither a fleeting Murira but a <span class="highlight">Fake Murira</span>, a star who’ll rewrite her name in <span class="gold">constellations</span>,<br>
+        Today, on your twenty-third orbit around the old sol,<br>
+        The universe hums a ballad, crafted just for you,<br>
+        A <span class="highlight">Queen Diamante</span>, forged in fire, crowned in light.</p>
+        <p>Twenty-three, a sacred number, echoes through creation’s pulse:<br>
+        Like the twenty-third psalm, where valleys of shadow yield to mercy’s table,<br>
+        Or the paired strands of DNA, twenty-three chromosomes weaving life’s tapestry,<br>
+        You, <span class="highlight">FMM</span>, are nature’s masterpiece, a helix of hope spun by the divine hands of the almighty.<br>
+        Your birth today is no mere moment, but a spark that sets galaxies ablaze.</p>
+        <p>In Gelfand hall and MLT 1, you carve your path to maxillofacial mastery,<br>
+        Sculpting smiles where pain once lingered, a surgeon with a queen’s precision.<br>
+        I see you, pen in hand, facing exams with fire in your eyes,<br>
+        And <span class="highlight">Dinkis</span>, are all over that Emhare Portal<br>
+        With a dazzling brilliance, brighter than any grade.</p>
+        <p>You’ve danced through storms, where other souls have been crushed.<br>
+        The shadow of your father’s passing, felt keenly yesterday on Father’s Day,<br>
+        Yet you rise unshaken even by betrayal’s sting.<br>
+        Each scar is a facet of your diamond heart,<br>
+        Reflecting strength that outshines even the darkest of nights.</p>
+        <p>Oh, and not leaving out <span class="gold">CR7</span> your baby, soaring past defenders,<br>
+        While Messi, well, let’s say he’s still chasing that Murira-level flair! But let’s agree to disagree<br>
+        Your passion for his game [but we both know it’s not the game but <span class="highlight">something else</span>] mirrors your own—bold, relentless, a spark on the field of life.<br>
+        You play to win, not just to play, and I’m your loudest fan in the stands.</p>
+        <img src="ronaldo.gif" alt="Cristiano Ronaldo celebrating">
+        <p>Your perseverance, <span class="highlight">FMM</span>, is no ordinary thread<br>
+        It’s a vow woven through late-night laughs and whispered encouragements,<br>
+        When I urge you to fight, to rise, to claim your throne.<br>
+        You call yourself royalty, and I see it:<br>
+        A queen who turns trials into triumphs, betrayals into ballads.</p>
+        <p>At twenty-three, you stand at the edge of a new dawn,<br>
+        Where the horizon bows to your courage.<br>
+        Your heart, a cathedral of resilience, holds space for grief and glory alike.<br>
+        I see you, Denise, not as a name to be changed,<br>
+        But as a legacy to be written—on faces healed, on lives touched, on stars named.</p>
+        <p>So here’s my gift, this woven song, a mirror to your radiance:<br>
+        May your scalpel shape futures as deftly as your spirit shapes hope.<br>
+        May your laughter echo louder than Ronaldo’s <span class="gold">Suuuies</span>,<br>
+        And may <span class="highlight">Queen Diamante</span> reign, unyielding, in the kingdom of her dreams.</p>
+        <p>Happy 23rd, my dearest friend<br>
+        Here’s to you, to your fight, to the infinite sparkle of your soul.<br>
+        With all my heart, forever your champion,<br>
+        For Denise, the one and only <span class="highlight">Fake Mhamha Murira</span>.<br>
+        <span class="gold">DOL………</span></p>
+    </div>
+</body>
+</html>
